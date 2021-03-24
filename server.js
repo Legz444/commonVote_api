@@ -8,7 +8,7 @@ const {hash, auth} = require('./controllers/authController');
 const userController = require('./controllers/userController');
 
 //mongoose connection
-mongoose.connect(process.env.MONGO_STRING, {
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useFindAndModify: true,
     useCreateIndex: false,
