@@ -14,7 +14,7 @@ mongoose.connect(process.env.MONGO_URI, {
     useCreateIndex: false,
     useUnifiedTopology: true
 })
-mongoose.connection.once('open', () => console.log('I connected to MongoDB'));
+mongoose.connection.once('open', () => console.log('Connected to MongoDB'));
 mongoose.connection.on('error', (err) => console.error(err));
 
 
@@ -24,11 +24,16 @@ app.use(cors());
 app.use('/', userController)
 
 //Routes INDUCES CRUD
-
+//Index Read
 app.get('/', (req, res) =>{
     res.send("Hello World")
 })
-
+//New
+//Delete Destroy
+//Update Update
+//Create Create
+//Edit
+//Show Read
 
 
 app.listen(PORT, ()=> console.log(`Listening on PORT ${PORT}`));
