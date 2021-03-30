@@ -25,7 +25,7 @@ app.use('/', userController)
 
 //Routes INDUCES CRUD
 //Index Read
-app.get('/', (req, res) =>{
+app.get('/vote', (req, res) =>{
     res.send("Hello World")
 })
 //New
