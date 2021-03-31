@@ -28,12 +28,10 @@ app.use('/', userController)
 app.get('/vote', (req, res) =>{
     res.send("Hello World")
 })
-//New
-//Delete Destroy
-//Update Update
-//Create Create
-//Edit
-//Show Read
+//Show one vote and corresponding chart
+//Create a vote and update data
+//Edit user vote and update data
+
 
 
 app.listen(PORT, ()=> console.log(`Listening on PORT ${PORT}`));

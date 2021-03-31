@@ -63,3 +63,9 @@ userRouter.post('/', async (req, res) => {
 })
 
 module.exports = userRouter;
+
+//User should be able to GET all seed data in a listed format.
+//User should be able to SHOW 1 question in a modal and see a corresponding chart.
+//User to be able to POST a new vote, which updates the existing votes and charts.
+//User should be able to edit their vote at anytime, which updates the existing votes and charts.
+//all of the above routes will be authorized only if the user logs in.
