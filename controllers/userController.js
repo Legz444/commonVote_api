@@ -23,8 +23,10 @@ userRouter.post('/register', async (req, res) => {
             token,
             authorized: true,
             username: newUser.email
-        })
-        res.status(200)
+        });
+        res.status(200);
+        res.redirect('/vote');
+        console.log("A new user has been created");
     }
     catch(err){
         res.status(400).json(err)
@@ -43,14 +45,16 @@ userRouter.post('/', async (req, res) => {
                     email: foundUser.email,
                     id: foundUser._id
                 }, SECRET
-            )
+            );
             res.status(200).json(
                 {
                     token,
                     authorized: true,
                     userName: foundUser.email
                 }
-            )
+            );
+            res.redirect('/vote');
+            console.log("You have logged in");
         }else{
             res.send(400).json({
                 message: 'Incorrect username or password.'
