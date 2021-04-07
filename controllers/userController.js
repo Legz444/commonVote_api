@@ -93,6 +93,13 @@ userRouter.get('/vote', auth, (req, res) => {
     )
 })
 
+// userRouter.post('/vote', async (req, res) => {
+
+
+// })
+
+
+
 userRouter.post('/register', async (req, res) => {
     let {email, password} = req.body;
     password = hash(password);
