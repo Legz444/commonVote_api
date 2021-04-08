@@ -1,5 +1,6 @@
 require('dotenv').config();
 const User = require('../models/user');
+const Poll = require('../models/poll');
 const {hash, auth} = require('./authController');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -93,10 +94,18 @@ userRouter.get('/vote', auth, (req, res) => {
     )
 })
 
-// userRouter.post('/vote', async (req, res) => {
-
-
-// })
+//If the user has voted, then push that vote into their vote array, then push that answer into the totals array//
+userRouter.post('/vote', async (req, res) => {
+    let{votes} = req.body;
+    try{
+        const newVote = await User.create({votes})
+        res
+            .status(200)
+            .json(newVote)
+    }catch(err){
+        res.json(err).status(400)
+    }
+})
 
 
 
@@ -109,7 +118,6 @@ userRouter.post('/register', async (req, res) => {
         const token = jwt.sign(
             {
                 email: newUser.email,
-                password: newUser.password, 
                 id: newUser._id
             }, SECRET);
         res.json({
@@ -118,8 +126,8 @@ userRouter.post('/register', async (req, res) => {
             username: newUser.email
         });
         res.status(200);
-        res.redirect('/vote');
         console.log("A new user has been created");
+        res.redirect('/vote');
     }
     catch(err){
         res.status(400).json(err)
@@ -136,7 +144,6 @@ userRouter.post('/', async (req, res) => {
             const token =jwt.sign(
                 {
                     email: foundUser.email,
-                    password: foundUser.password,
                     id: foundUser._id
                 }, SECRET
             );
@@ -146,9 +153,8 @@ userRouter.post('/', async (req, res) => {
                     authorized: true,
                     userName: foundUser.email
                 }
-            );
-            res.redirect('/vote');
-            console.log("You have logged in");
+            )
+            
         }else{
             res.send(400).json({
                 message: 'Incorrect username or password.'
@@ -156,7 +162,7 @@ userRouter.post('/', async (req, res) => {
         }
     }catch(err){
         console.error(err);
-        res.status(400).json(error);
+        res.send(400).json(err);
     }
 })
 

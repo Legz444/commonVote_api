@@ -2,7 +2,7 @@ const {Schema, model} = require('mongoose');
 
 const pollSchema = new Schema ([{
     question: String,
-    votes: Array
+    answer: Array
 }])
 
 const Poll = model('Poll', pollSchema);
