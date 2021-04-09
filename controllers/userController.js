@@ -1,6 +1,6 @@
 require('dotenv').config();
 const User = require('../models/user');
-const Poll = require('../models/poll');
+const Totals = require('../models/totals');
 const {hash, auth} = require('./authController');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -94,18 +94,20 @@ userRouter.get('/vote', auth, (req, res) => {
     )
 })
 
-//If the user has voted, then push that vote into their vote array, then push that answer into the totals array//
-userRouter.post('/vote', async (req, res) => {
-    let{votes} = req.body;
-    try{
-        const newVote = await User.create({votes})
-        res
-            .status(200)
-            .json(newVote)
-    }catch(err){
-        res.json(err).status(400)
-    }
-})
+//When the user has voted, post their vote into their user schema//
+// userRouter.post('/vote', async (req, res) => {
+//     let {votes} =req.body;
+//     try{
+//         const newVote = await User.create({votes})
+//         res.json({
+//             votes: newVote.votes
+//         });
+//         res.status(200);
+//     }catch(err){
+//         res.status(400).json(err)
+//     }
+// })
+//When the user has voted, post the totals into the totals schema//
 
 
 
@@ -123,7 +125,8 @@ userRouter.post('/register', async (req, res) => {
         res.json({
             token,
             authorized: true,
-            username: newUser.email
+            username: newUser.email,
+            id: newUser._id
         });
         res.status(200);
         console.log("A new user has been created");
@@ -151,7 +154,8 @@ userRouter.post('/', async (req, res) => {
                 {
                     token,
                     authorized: true,
-                    userName: foundUser.email
+                    userName: foundUser.email,
+                    id: foundUser._id
                 }
             )
             

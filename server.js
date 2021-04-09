@@ -31,6 +31,20 @@ app.get('/', (req, res) =>{
         "hello world"
     )
 })
+
+app.post('/totals', async (req, res) =>{
+    let {totals} = req.body
+    try{
+        const newTotalData = await app.create({totals})
+        res.json({
+            totals: newTotalData.totals
+        })
+        res.status(200);
+        console.log("Total data has been updated!")
+    }catch(err){
+        res.status(400).json(err)
+    }
+})
 //Show one vote and corresponding chart
 //Create a vote and update data
 //Edit user vote and update data

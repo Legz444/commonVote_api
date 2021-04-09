@@ -7,8 +7,7 @@ const userSchema = new Schema({
     lastName: String,
     dob: String,
     isRegistered: Boolean,
-    id: String,
-    votes: Array
+    id: String
 })
 
 const User = model('User', userSchema);
