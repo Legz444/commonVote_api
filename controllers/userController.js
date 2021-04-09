@@ -95,18 +95,8 @@ userRouter.get('/vote', auth, (req, res) => {
 })
 
 //When the user has voted, post their vote into their user schema//
-// userRouter.post('/vote', async (req, res) => {
-//     let {votes} =req.body;
-//     try{
-//         const newVote = await User.create({votes})
-//         res.json({
-//             votes: newVote.votes
-//         });
-//         res.status(200);
-//     }catch(err){
-//         res.status(400).json(err)
-//     }
-// })
+
+
 //When the user has voted, post the totals into the totals schema//
 
 
