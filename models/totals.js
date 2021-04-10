@@ -1,7 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const totalsSchema = new Schema ({
-    answers: [{type: String}]
+    totals: String
 })
 
 const Totals = model('Totals', totalsSchema);

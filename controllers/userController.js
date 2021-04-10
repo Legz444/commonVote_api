@@ -1,6 +1,5 @@
 require('dotenv').config();
 const User = require('../models/user');
-const Totals = require('../models/totals');
 const {hash, auth} = require('./authController');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -66,11 +65,11 @@ userRouter.get('/vote', auth, (req, res) => {
             currentSystem:[
                 {
                     question: "Do you believe in the impeachment process in the United States?",
-                    answer: ["Yes", "No", "I don't know", "Sometimes"]
+                    answers: ["Yes", "No", "I don't know", "Sometimes"]
                 },
                 {
                     question: "Are you in favor of or against mail-in voting?",
-                    answer: ["Completely in favor", "Somewhat in favor", "I don't know", "I don't care", "Somewhat against", "Completely Against"]
+                    answers: ["Completely in favor", "Somewhat in favor", "I don't know", "I don't care", "Somewhat against", "Completely Against"]
                 }
             ],
             economics:[
@@ -94,12 +93,36 @@ userRouter.get('/vote', auth, (req, res) => {
     )
 })
 
-//When the user has voted, post their vote into their user schema//
-
-
-//When the user has voted, post the totals into the totals schema//
-
-
+//When the user has voted, post their vote into their user data//
+userRouter.post('/vote', auth, async (req, res) => {
+    try{
+        const newVote = await User.create(req.body)
+        res.status(200).json(newVote)
+    }catch(err){
+        res.json(err).status(404)
+    }
+})
+// userRouter.post('/vote', auth, async (req, res) => {  
+//     let {email, votes} = req.body;
+//     try{
+//         const userQuery = User.findOne({email}).select('email votes');
+//         const foundUser = await userQuery.exec();
+//         if(bcrypt.compareSync(email, foundUser.email)){
+//         const newVote = await foundUser.create({votes})
+//         res.status(200).json({
+//             authorized: true,
+//             votes: newVote.votes
+            
+//         })}else{
+//             res.send(400).json({
+//                 message: 'Could not post vote'
+//             })
+//         }
+//     }catch(err){
+//         console.error(err)
+//         res.status(400).json(err);
+//     }
+// })
 
 userRouter.post('/register', async (req, res) => {
     let {email, password} = req.body;
@@ -115,7 +138,7 @@ userRouter.post('/register', async (req, res) => {
         res.json({
             token,
             authorized: true,
-            username: newUser.email,
+            email: newUser.email,
             id: newUser._id
         });
         res.status(200);
@@ -147,8 +170,7 @@ userRouter.post('/', async (req, res) => {
                     userName: foundUser.email,
                     id: foundUser._id
                 }
-            )
-            
+            )           
         }else{
             res.send(400).json({
                 message: 'Incorrect username or password.'
