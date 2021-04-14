@@ -2,6 +2,7 @@
   "name": "commonvote_api",
   "version": "1.0.0",
   "main": "server.js",
+  "engines": {"yarn":"1.22.10"},
   "repository": "https://github.com/Legz444/commonVote_api.git",
   "author": "Allegra Hilburger",
   "license": "MIT",

@@ -4,7 +4,7 @@ const {auth} = require('./authController');
 const express = require('express');
 const totalsRouter = express.Router();
 
-totalsRouter.post('/vote', auth, async (req, res) => {  
+totalsRouter.post('/totals', auth, async (req, res) => {  
     let {totals} = req.body;
     try{
         const newVote = await Totals.create({totals})

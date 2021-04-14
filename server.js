@@ -21,11 +21,10 @@ mongoose.connection.on('error', (err) => console.error(err));
 //middleware
 app.use(express.json())
 app.use(cors());
-app.use('/', userController, totalController)
-// app.use(express.urlencoded({extended:false}));
+app.use('/', userController);
+app.use('/vote', totalController);
+app.use(express.urlencoded({extended:false}));
 
-//Routes INDUCES CRUD
-//Index Read
 
 
 

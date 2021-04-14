@@ -102,6 +102,7 @@ userRouter.post('/vote', auth, async (req, res) => {
         res.json(err).status(404)
     }
 })
+
 // userRouter.post('/vote', auth, async (req, res) => {  
 //     let {email, votes} = req.body;
 //     try{
@@ -142,15 +143,13 @@ userRouter.post('/register', async (req, res) => {
             id: newUser._id
         });
         res.status(200);
-        console.log("A new user has been created");
-        res.redirect('/vote');
     }
     catch(err){
         res.status(400).json(err)
     }
 })
 
-userRouter.post('/', async (req, res) => {
+userRouter.post('/login', async (req, res) => {
     let {email, password} = req.body;
     password = hash(password);
     try{
